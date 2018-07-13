@@ -1,0 +1,82 @@
+/*
+Error: Invalid CSS after "...     content: '": expected "{", was "';"
+        on line 175 of _core-components.scss
+        from line 4 of style.scss
+
+170:           content: '|';
+171:           color: #c0c0c0;
+172:           padding-left: 10px;
+173:         }
+174:         &:last-child:after{
+175:           content: '';
+176:         }
+177:       }
+178:     }
+179:   }
+180: 
+
+Backtrace:
+_core-components.scss:175
+style.scss:4
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:1278:in `expected'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:1208:in `expected'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:1203:in `tok!'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:677:in `block'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:747:in `declaration_or_ruleset'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:697:in `block_child'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:689:in `block_contents'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:678:in `block'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:747:in `declaration_or_ruleset'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:697:in `block_child'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:689:in `block_contents'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:678:in `block'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:670:in `ruleset'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:696:in `block_child'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:686:in `block_contents'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:137:in `stylesheet'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/scss/parser.rb:41:in `parse'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/engine.rb:414:in `_to_tree'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/engine.rb:321:in `to_tree'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:327:in `block in visit_import'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/stack.rb:88:in `block in with_import'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/stack.rb:88:in `with_import'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:326:in `visit_import'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `block in visit'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `block in with_base'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/stack.rb:135:in `with_frame'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/stack.rb:79:in `with_base'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:162:in `visit'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:52:in `map'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:171:in `block in visit_children'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:183:in `with_environment'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:170:in `visit_children'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:190:in `visit_root'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/base.rb:36:in `visit'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:161:in `visit'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/visitors/perform.rb:10:in `visit'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/root_node.rb:36:in `css_tree'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/engine.rb:307:in `render_with_sourcemap'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:462:in `update_stylesheet'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:209:in `each'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/plugin.rb:82:in `update_stylesheets'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/exec/sass_scss.rb:340:in `watch_or_update'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/exec/sass_scss.rb:51:in `process_result'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/exec/base.rb:52:in `parse'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/lib/sass/exec/base.rb:19:in `parse!'
+/Applications/MAMP/Library/lib/ruby/gems/2.3.0/gems/sass-3.5.6/bin/sass:13:in `<top (required)>'
+/Applications/MAMP/Library/bin/sass:23:in `load'
+/Applications/MAMP/Library/bin/sass:23:in `<main>'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: Invalid CSS after \"...     content: '\": expected \"{\", was \"';\"\A         on line 175 of _core-components.scss\A         from line 4 of style.scss\A \A 170:           content: '|';\A 171:           color: #c0c0c0;\A 172:           padding-left: 10px;\A 173:         }\A 174:         &:last-child:after{\A 175:           content: '';\A 176:         }\A 177:       }\A 178:     }\A 179:   }\A 180: "; }

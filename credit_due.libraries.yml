@@ -1,0 +1,15 @@
+global-styling:
+  version: VERSION
+  css:
+    dashicons:
+      fonts/dashicons/icon-font/css/dashicons.css: {}
+    base:
+      css/base/style.css: {}
+  # add js then kill the toolbar view toggle
+toolbar-overrides:
+  js:
+    js/toolbar.js: {}
+    js/ui.js: {}
+  dependencies:
+      - core/jquery
+      - core/drupal

@@ -1,0 +1,19 @@
+name: Credit Due
+type: theme
+description: 'Taking inspriation from some Worthwhile Professionals'
+package: Other
+core: 8.x
+libraries:
+  - credit_due/global-styling
+  - credit_due/toolbar-overrides
+ 
+base theme: seven
+
+regions:
+  breadcrumb: Breadcrumb
+  highlighted: Highlighted
+  help: Help
+  content: Content
+  page_top: 'Page top'
+  page_bottom: 'Page bottom'
+  sidebar_first: 'First sidebar'
