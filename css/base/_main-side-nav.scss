@@ -7,6 +7,7 @@
     *{
       box-sizing: border-box;
     }
+
     ul.menu {
       padding: 0;
       margin:0;
@@ -85,7 +86,9 @@
           &.link-level-0 {
             background: #23282d;
             color: #eee;
-
+            &:focus {
+              text-decoration: none;
+            }
             &.dashicons-before {
               padding: 0 7px 0 34px;
               &:before {
@@ -198,9 +201,6 @@
       }
       background-color: #32373c;
     }
-
-
-
   }
   @media only screen and (min-width: 783px) {
     #creditdue-admin-nav {

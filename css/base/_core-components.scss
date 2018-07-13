@@ -238,6 +238,16 @@
       }
     }
   }
+  .tabs.secondary {
+    position: relative;
+    top: 8px;
+    .tabs__tab {
+      a {
+        @include cd-tab-button;
+      }
+    }
+  }
+
 
   .path-node {
     .block-system-breadcrumb-block {
@@ -316,6 +326,9 @@
 
       }
     }
+  }
+  a.button--small {
+    padding: 5px 1em 2px;
   }
 
   div.messages {

@@ -371,6 +371,19 @@ img {
       border-color: #008EC2;
       background: #00a0d2;
       color: #fff; }
+.creditdue .tabs.secondary {
+  position: relative;
+  top: 8px; }
+  .creditdue .tabs.secondary .tabs__tab a {
+    background: #f7f7f7;
+    font-weight: 600;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    padding: 4px 8px; }
+    .creditdue .tabs.secondary .tabs__tab a:hover {
+      border-color: #008EC2;
+      background: #00a0d2;
+      color: #fff; }
 .creditdue .path-node .block-system-breadcrumb-block {
   display: none; }
 .creditdue table, .creditdue thead th {
@@ -427,6 +440,8 @@ img {
     padding: 0; }
     .creditdue .button.button--danger:hover {
       color: #dc3232; }
+.creditdue a.button--small {
+  padding: 5px 1em 2px; }
 .creditdue div.messages {
   background-color: #FFF;
   padding-top: 8.5px;
@@ -607,6 +622,8 @@ img {
         .creditdue #creditdue-admin-nav ul li a.link-level-0 {
           background: #23282d;
           color: #eee; }
+          .creditdue #creditdue-admin-nav ul li a.link-level-0:focus {
+            text-decoration: none; }
           .creditdue #creditdue-admin-nav ul li a.link-level-0.dashicons-before {
             padding: 0 7px 0 34px; }
             .creditdue #creditdue-admin-nav ul li a.link-level-0.dashicons-before:before {
