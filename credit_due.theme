@@ -8,7 +8,6 @@
 use Drupal\Core\Menu\MenuTreeParameters;
 use Drupal\Core\Template\Attribute;
 use Drupal\Core\Url;
-use Drupal\Core\Cache\CacheBackendInterface;
 
 require_once 'inc/forms.inc';
 
@@ -32,75 +31,73 @@ function credit_due_preprocess_page(array &$variables) {
  * possible in a theme.
  */
 function _credit_due_sidenav_menu() {
-  $cid = 'creditdue_sidenav:' . \Drupal::languageManager()
-      ->getCurrentLanguage()
-      ->getId();
-  if ($cache = \Drupal::cache()
-    ->get($cid)) {
 
-    $data = $cache->data;
-  }
-  else {
-    $menu_link_service = \Drupal::getContainer()->get('plugin.manager.menu.link');
-    $menu_links = $menu_link_service->loadLinksByRoute('system.admin', [], 'admin');
-    $data = [];
-    if (!empty($menu_links)) {
-      $root_menu_item = reset($menu_links);
-      $menu_parameters = new MenuTreeParameters();
-      $menu_parameters->setMaxDepth(2);
-      $menu_parameters->setMinDepth(2);
-      $menu_parameters->setRoot($root_menu_item->getPluginId());
-      $menu_parameters->excludeRoot();
-      $menu_tree_service = \Drupal::service('menu.link_tree');
-      $tree = $menu_tree_service->load('admin', $menu_parameters);
-      $manipulators = [
-        ['callable' => 'menu.default_tree_manipulators:checkNodeAccess'],
-        ['callable' => 'menu.default_tree_manipulators:checkAccess'],
-        ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+  $menu_link_service = \Drupal::getContainer()->get('plugin.manager.menu.link');
+  $menu_links = $menu_link_service->loadLinksByRoute('system.admin', [], 'admin');
+  $data = [];
+  if (!empty($menu_links)) {
+    $root_menu_item = reset($menu_links);
+    $menu_tree_service = \Drupal::service('menu.link_tree');
+    $menu_parameters = $menu_tree_service->getCurrentRouteMenuTreeParameters('admin');
+    $other_menu_parameters = new MenuTreeParameters();
+    $menu_parameters->setMaxDepth(2);
+    $menu_parameters->setMinDepth(2);
+    $menu_parameters->setRoot($root_menu_item->getPluginId());
+    $menu_parameters->excludeRoot();
+
+    $other_menu_parameters->setMaxDepth(2);
+    $other_menu_parameters->setMinDepth(2);
+    $other_menu_parameters->setRoot($root_menu_item->getPluginId());
+    $other_menu_parameters->excludeRoot();
+
+    $menu_parameters->expandedParents = [];
+    $tree = $menu_tree_service->load('admin', $menu_parameters);
+    $manipulators = [
+      ['callable' => 'menu.default_tree_manipulators:checkNodeAccess'],
+      ['callable' => 'menu.default_tree_manipulators:checkAccess'],
+      ['callable' => 'menu.default_tree_manipulators:generateIndexAndSort'],
+    ];
+    $tree = $menu_tree_service->transform($tree, $manipulators);
+    $leftnav_render_array = $menu_tree_service->build($tree);
+    $sidebar_cts = credit_due_content_types_for_sidebar();
+
+    foreach ($sidebar_cts as $ct) {
+      $leftnav_render_array['#items']['system.admin_content.' . $ct->id()] = [
+        'attributes' => new Attribute(),
+        'title' => $ct->label(),
+        'below' => [],
+        'url' => Url::fromRoute('system.admin_content', [], [
+          'query' => [
+            'type' => $ct->id(),
+          ],
+        ]),
+
       ];
-      $tree = $menu_tree_service->transform($tree, $manipulators);
-      $leftnav_render_array = $menu_tree_service->build($tree);
-      $sidebar_cts = credit_due_content_types_for_sidebar();
+    }
+    $items = $leftnav_render_array['#items'];
 
-      foreach ($sidebar_cts as $ct) {
-        $leftnav_render_array['#items']['system.admin_content.' . $ct->id()] = [
-          'attributes' => new Attribute(),
-          'title' => $ct->label(),
-          'below' => [],
-          'url' => Url::fromRoute('system.admin_content', [], [
-            'query' => [
-              'type' => $ct->id(),
-            ],
-          ]),
-
-        ];
-      }
-      $items = $leftnav_render_array['#items'];
-
-      // Sort so content is first, and content types immediately follow.
-      uksort($items, function ($a, $b) {
-        if (strpos($a, 'system.admin_content') !== FALSE && strpos($b, 'system.admin_content') !== FALSE) {
-          if ($a === 'system.admin_content') {
-            return 0;
-          }
-          return 1;
-        }
-        elseif (strpos($a, 'system.admin_content') !== FALSE && strpos($b, 'system.admin_content') === FALSE) {
-          return -1;
+    // Sort so content is first, and content types immediately follow.
+    uksort($items, function ($a, $b) {
+      if (strpos($a, 'system.admin_content') !== FALSE && strpos($b, 'system.admin_content') !== FALSE) {
+        if ($a === 'system.admin_content') {
+          return 0;
         }
         return 1;
-      });
-      $leftnav_render_array['#items'] = $items;
+      }
+      elseif (strpos($a, 'system.admin_content') !== FALSE && strpos($b, 'system.admin_content') === FALSE) {
+        return -1;
+      }
+      return 1;
+    });
+    $leftnav_render_array['#items'] = $items;
 
-      $data = $leftnav_render_array;
-      $data['#attributes']['id']['credit-admin-nav'];
-      $data['#id'] = 'creditdue-left-nav';
-      $data['#prefix'] = '<div id="creditdue-admin-nav">';
-      $data['#suffix'] = '</div>';
-    }
-    \Drupal::cache()
-      ->set($cid, $data, CacheBackendInterface::CACHE_PERMANENT, ['entity_bundles', 'config:system.menu.admin']);
+    $data = $leftnav_render_array;
+    $data['#attributes']['id']['credit-admin-nav'];
+    $data['#id'] = 'creditdue-left-nav';
+    $data['#prefix'] = '<div id="creditdue-admin-nav">';
+    $data['#suffix'] = '</div>';
   }
+
   return $data;
 }
 
@@ -126,51 +123,13 @@ function credit_due_content_types_for_sidebar() {
  */
 function credit_due_preprocess_menu(&$variables, $hook) {
   if ($hook == 'menu__admin') {
-    $current_uri = \Drupal::request()->getRequestUri();
-    $uri_pieces = explode("/", $current_uri);
-    $depth = count($uri_pieces);
-    $parent_trail = '';
-    $subparent_trail = '';
-    if ($depth > 4) {
-      $parent_trail = implode("/", array_splice($uri_pieces, 0, 3));
-      if (!empty($uri_pieces[0])) {
-        $subparent_trail = $parent_trail . '/' . $uri_pieces[0];
-      }
-    }
-    $variables['items']['system.admin_reports']['weight'] = -1;
-    $variables['items']['system.modules_list']['weight'] = 100;
-    $current_path = \Drupal::request()->getRequestUri();
     foreach ($variables['items'] as &$item) {
       if (isset($item['title']) && $item['title'] == "Content") {
         $item['title'] = t("All Content");
       }
-      if ($item['url']->toString() == $current_path || strpos($item['url']->toString(), $parent_trail) !== FALSE) {
-        $item['in_active_trail'] = TRUE;
-        $item['is_active'] = TRUE;
-      }
-      if (count($item['below'])) {
-        _credit_due_menu_process_submenu($item['below'], $item, $current_path, $subparent_trail);
-      }
     }
   }
 }
-
-/**
- * Set active and active-trail class for sub-menus recursively.
- */
-function _credit_due_menu_process_submenu(&$submenu, &$parentitem, $current_path, $subparent_trail = FALSE) {
-  foreach ($submenu as &$item) {
-    if ($item['url']->toString() == $current_path || strpos($item['url']->toString(), $subparent_trail) !== FALSE) {
-      $item['is_active'] = TRUE;
-      $parentitem['in_active_trail'] = TRUE;
-    }
-    elseif (count($item['below'])) {
-      _credit_due_menu_process_submenu($item['below'], $item, $current_path, $subparent_trail);
-    }
-  }
-}
-
-
 
 /**
  * Implements theme_preprocess_page_title().

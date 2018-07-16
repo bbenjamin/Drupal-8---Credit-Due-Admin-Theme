@@ -10,13 +10,11 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Implements hook_form_alter().
  */
-function credit_due_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (!empty($form['#id']) && $form['#id'] == 'views-form-content-page-1') {
-    $form['actions']['submit']['#value'] = t('Apply');
-    $form['header']['node_bulk_form']['actions']['submit']['#value'] = t('Apply');
-    $form['header']['node_bulk_form']['action']['#options']['none'] = t('Bulk Operations');
-    $form['header']['node_bulk_form']['action']['#default_value'] = 'none';
-  }
+function credit_due_form_views_form_content_page_1_alter(&$form, FormStateInterface $form_state) {
+  $form['actions']['submit']['#value'] = t('Apply');
+  $form['header']['node_bulk_form']['actions']['submit']['#value'] = t('Apply');
+  $form['header']['node_bulk_form']['action']['#options']['none'] = t('Bulk Operations');
+  $form['header']['node_bulk_form']['action']['#default_value'] = 'none';
 }
 
 /**
@@ -30,20 +28,22 @@ function credit_due_form_node_type_edit_form_alter(&$form, FormStateInterface $f
     '#title' => t('Display in left sidebar'),
     '#default_value' => is_null($ct_theme_config) ? 1 : (isset($ct_theme_config['show_left_sidebar']) ? $ct_theme_config['show_left_sidebar'] : 1),
   ];
-  $form['#entity_builders'][] = 'credit_due_ct_config_entity_save';
+  $form['actions']['submit']['#submit'][] = 'credit_due_ct_config_entity_save';
 }
 
 /**
  * Additional submit handler for content type form for saving sidebar settings.
  */
-function credit_due_ct_config_entity_save($entity_type, $entity, &$form, FormStateInterface $form_state) {
+function credit_due_ct_config_entity_save($form, FormStateInterface $form_state) {
   $settings = [];
   $show_left_sidebar = $form_state->getValue('show_left_sidebar');
+  $entity = $form_state->getFormObject()->getEntity();
 
   if (!is_null($show_left_sidebar)) {
     $settings['show_left_sidebar'] = $show_left_sidebar;
   }
   $entity->setThirdPartySetting('credit_due', 'credit_due_ct_config', $settings);
+  $entity->save();
 }
 
 /**
@@ -54,18 +54,19 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
   $node = $form_object->getEntity();
 
   // Move the path settings (URL Alias) fields to directly below the title.
-  unset($form["path_settings"]["#group"]);
-  $form["path_settings"]["#type"] = 'fieldset';
-  $form["path_settings"]["#weight"] = -4;
+  $title_weight = isset($form['title']['#weight']) ? $form['title']['#weight'] : 0;
+  unset($form['path_settings']['#group']);
+  $form['path_settings']['#type'] = 'fieldset';
+  $form['path_settings']['#weight'] = $title_weight + .5;
 
   // Reposition save/preview/delete to Publish tab.
   $form['meta']['actions'] = $form['actions'];
-  unset($form['actions']);
+  $form['actions']['#access'] = FALSE;
   $form['meta']['actions']['delete']['#weight'] = 0;
   $form['meta']['actions']['#attributes']['class'][] = 'clearfix';
   $form['meta']['preview'] = $form['meta']['actions']['preview'];
   $form['meta']['preview']['#weight'] = 0;
-  unset($form['meta']['actions']['preview']);
+  $form['meta']['actions']['preview']['#access'] = FALSE;
 
   // Hide Revision information for now.
   $form['revision_information']['#access'] = FALSE;
@@ -85,24 +86,25 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
   $form['meta']['created'] = $form['created'];
   $form['meta']['created']['#attributes']['class'][] = 'expand-to-edit';
   $form['meta']['created']['#suffix'] = $savecancel;
-  unset($form['created']);
   unset($form['meta']['created']['widget']['#description']);
   unset($form['meta']['created']['widget'][0]['value']['#description']);
+  $form['created']['#access'] = false;
 
   // Change "authored by" field to label-only that can be edited
   // by clicking "edit" and move to new position.
   unset($form['uid']['#group']);
   $form['meta']['uid'] = $form['uid'];
-  unset($form['uid']);
+  $form['uid']['#access'] = FALSE;
   unset($form['meta']['uid']['widget']['#description']);
   unset($form['meta']['uid']['widget'][0]['target_id']['#description']);
   $form['meta']['uid']['#attributes']['class'][] = 'expand-to-edit';
+  //$form['meta']['uid']['#suffix'] = ['#markup' => $savecancel];
   $form['meta']['uid']['#suffix'] = $savecancel;
 
   // Move "published" checkbox from form bottom to Publish tab.
   unset($form['status']['#group']);
   $form['meta']['status'] = $form['status'];
-  unset($form['status']);
+  $form['status']['#access'] = FALSE;
 
   // Change order of items within the Publish tab.
   $form['meta']['status']['#weight'] = 10;
@@ -111,7 +113,7 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
 
   // "Authoring information" tab is no longer necessary
   // because all elements have been moved to "Publish".
-  unset($form['meta']['author']);
+  $form['meta']['author']['#access'] = FALSE;
 
   // Add class to a few node form fields that bypass the white background.
   $form['title']['#attributes']['class'][] = 'no-white-bg';

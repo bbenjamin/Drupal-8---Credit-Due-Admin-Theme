@@ -429,7 +429,7 @@ img {
     font-weight: 700;
     height: 30px; }
     .creditdue .button.button--primary.button--small {
-      line-height: 25px; }
+      line-height: 18px; }
     .creditdue .button.button--primary:hover {
       background: #008ec2;
       border-color: #006799; }
@@ -738,6 +738,10 @@ img {
     font-weight: normal; }
 .creditdue .node-form .layout-region-node-footer {
   display: none; }
+.creditdue .node-form .form-wrapper {
+  margin-bottom: 18px; }
+  .creditdue .node-form .form-wrapper.field--name-title, .creditdue .node-form .form-wrapper .form-wrapper {
+    margin-bottom: 0; }
 .creditdue .node-form input.form-autocomplete, .creditdue .node-form input.form-text, .creditdue .node-form input.form-tel, .creditdue .node-form input.form-email, .creditdue .node-form input.form-url, .creditdue .node-form input.form-search, .creditdue .node-form input.form-number, .creditdue .node-form input.form-color, .creditdue .node-form input.form-file, .creditdue .node-form input.form-date, .creditdue .node-form input.form-time, .creditdue .node-form textarea.form-textarea {
   border: 1px solid #e5e5e5; }
 .creditdue .node-form ul.tips li {
@@ -747,7 +751,7 @@ img {
   display: none; }
 .creditdue .node-form .field--name-title .form-type-textfield {
   margin: 0; }
-.creditdue .node-form input.form-text {
+.creditdue .node-form .field--name-title input.form-text {
   height: 1.7em;
   font-size: 1.7em;
   line-height: 100%; }
@@ -862,6 +866,9 @@ img {
   background: #FFF;
   padding: 0 12px 8px 12px;
   border: 1px solid #e5e5e5; }
+  .creditdue .node-form .layout-region-node-main .form-wrapper:not(.no-white-bg) .form-wrapper {
+    padding: 0;
+    border: none; }
   .creditdue .node-form .layout-region-node-main .form-wrapper:not(.no-white-bg) label {
     display: block;
     padding-top: 8px;
