@@ -27,7 +27,7 @@
 
       $('.save-cancel-ok', context).click(function (e) {
         e.preventDefault();
-        var $container = $(this).closest('.save-cancel').prev();
+        var $container = $(this).closest('.expand-to-edit');oo
         var value = $container.find('input').first().val();
         if ($container.hasClass('field--widget-datetime-timestamp')) {
           value += ' ' + $container.find('.form-time').first().val();
@@ -39,7 +39,7 @@
       $('.save-cancel-cancel', context).click(function (e) {
 
         e.preventDefault();
-        var $container = $(this).closest('.save-cancel').prev();
+        var $container = $(this).closest('.expand-to-edit');
         var $input = $container.find('input').first();
         $input.val($input.attr('data-prev-value'));
         if ($container.hasClass('field--widget-datetime-timestamp')) {

@@ -92,8 +92,6 @@ function _credit_due_sidenav_menu() {
     $leftnav_render_array['#items'] = $items;
 
     $data = $leftnav_render_array;
-    $data['#attributes']['id']['credit-admin-nav'];
-    $data['#id'] = 'creditdue-left-nav';
     $data['#prefix'] = '<div id="creditdue-admin-nav">';
     $data['#suffix'] = '</div>';
   }
@@ -106,7 +104,6 @@ function _credit_due_sidenav_menu() {
  */
 function credit_due_content_types_for_sidebar() {
   $contentTypes = \Drupal::service('entity.manager')->getStorage('node_type')->loadMultiple();
-
   $contentTypesList = [];
   foreach ($contentTypes as $contentType) {
     $ct_theme_settings = $contentType->getThirdPartySetting('credit_due', 'credit_due_ct_config');

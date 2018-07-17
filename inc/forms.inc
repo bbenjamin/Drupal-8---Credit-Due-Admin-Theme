@@ -6,6 +6,7 @@
  */
 
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_form_alter().
@@ -75,17 +76,33 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
   $form['meta']['published']['#markup'] = t('Publish');
   $form['meta']['preview']['#value'] = t('Preview Changes');
 
-  $savecancel = '<div class="save-cancel">
-                  <a class="button save-cancel-ok" href="">OK</a> 
-                  <a href="#" class="save-cancel-cancel">Cancel</a>
-                  </div>';
+  $actions = [
+    '#prefix' => '<div class="save-cancel">',
+    '#suffix' => '</div>',
+    0 => [
+      '#type' => 'link',
+      '#url' => Url::fromUserInput('#'),
+      '#title' => t('OK'),
+      '#attributes' => [
+        'class' => ['button', 'save-cancel-ok'],
+      ],
+    ],
+    1 => [
+      '#type' => 'link',
+      '#url' => Url::fromUserInput('#'),
+      '#title' => t('Cancel'),
+      '#attributes' => [
+        'class' => ['save-cancel-cancel'],
+      ],
+    ],
+  ];
 
   // Change "authored on" field to label-only that can be edited
   // by clicking "edit" and move to new position.
   unset($form['created']['#group']);
   $form['meta']['created'] = $form['created'];
   $form['meta']['created']['#attributes']['class'][] = 'expand-to-edit';
-  $form['meta']['created']['#suffix'] = $savecancel;
+  $form['meta']['created']['savecancel'] = $actions;
   unset($form['meta']['created']['widget']['#description']);
   unset($form['meta']['created']['widget'][0]['value']['#description']);
   $form['created']['#access'] = false;
@@ -98,8 +115,7 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
   unset($form['meta']['uid']['widget']['#description']);
   unset($form['meta']['uid']['widget'][0]['target_id']['#description']);
   $form['meta']['uid']['#attributes']['class'][] = 'expand-to-edit';
-  //$form['meta']['uid']['#suffix'] = ['#markup' => $savecancel];
-  $form['meta']['uid']['#suffix'] = $savecancel;
+  $form['meta']['uid']['savecancel'] = $actions;
 
   // Move "published" checkbox from form bottom to Publish tab.
   unset($form['status']['#group']);

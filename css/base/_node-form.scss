@@ -145,8 +145,11 @@
 
     .save-cancel {
       display: none;
+      .save-cancel-ok {
+        margin-right: 8px;
+      }
     }
-    .is-expanded + .save-cancel {
+    .is-expanded.expand-to-edit  .save-cancel {
       display: block;
       margin: 8px 0 24px;
     }

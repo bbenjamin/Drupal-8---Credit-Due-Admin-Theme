@@ -838,7 +838,9 @@ img {
   border: 1px solid #e5e5e5; }
 .creditdue .node-form .save-cancel {
   display: none; }
-.creditdue .node-form .is-expanded + .save-cancel {
+  .creditdue .node-form .save-cancel .save-cancel-ok {
+    margin-right: 8px; }
+.creditdue .node-form .is-expanded.expand-to-edit .save-cancel {
   display: block;
   margin: 8px 0 24px; }
 .creditdue .node-form .expand-to-edit input, .creditdue .node-form .expand-to-edit .save-cancel, .creditdue .node-form .expand-to-edit .container-inline {
