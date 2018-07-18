@@ -10,10 +10,7 @@ libraries:
 base theme: seven
 
 regions:
-  breadcrumb: Breadcrumb
   highlighted: Highlighted
-  help: Help
   content: Content
-  page_top: 'Page top'
-  page_bottom: 'Page bottom'
-  sidebar_first: 'First sidebar'
+#  page_top: 'Page top'
+#  page_bottom: 'Page bottom'

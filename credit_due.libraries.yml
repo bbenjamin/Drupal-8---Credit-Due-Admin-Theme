@@ -1,11 +1,9 @@
 global-styling:
   version: VERSION
   css:
-    dashicons:
-      fonts/dashicons/icon-font/css/dashicons.css: {}
     base:
       css/base/style.css: {}
-  # add js then kill the toolbar view toggle
+      fonts/dashicons/icon-font/css/dashicons.css: {}
 toolbar-overrides:
   js:
     js/toolbar.js: {}
