@@ -106,7 +106,7 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
   unset($form['meta']['created']['widget']['#description']);
   unset($form['meta']['created']['widget'][0]['value']['#description']);
   $form['created']['#access'] = false;
-
+  unset($form['created']);
   // Change "authored by" field to label-only that can be edited
   // by clicking "edit" and move to new position.
   unset($form['uid']['#group']);
@@ -155,4 +155,8 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
     t("URL Alias:")->__toString(),
     ($alias) ? $alias : '',
     $nid);
+}
+
+function credit_due_node_presave($entity) {
+
 }

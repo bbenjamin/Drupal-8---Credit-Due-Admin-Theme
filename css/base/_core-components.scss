@@ -107,7 +107,9 @@
   #block-credit-due-local-actions {
     float: right;
     position: relative;
-    top: 8px;
+    ul {
+      margin: 0;
+    }
   }
 
   #views-exposed-form-content-page-1, #views-form-content-page-1 {
@@ -196,6 +198,7 @@
   }
   .block-page-title-block {
     display: inline-block;
+    vertical-align: top;
     h1{
       font-size: 23px;
       line-height: 1;
@@ -214,39 +217,75 @@
     padding: 0;
   }
 
+  .tabs.primary {
+    margin-top: 0;
+  }
+
   #block-credit-due-local-tasks {
     position: relative;
-    top: 5px;
-    display: inline-block;
-    li.tabs__tab, li.tabs__tab.is-active{
-      border: none;
-      margin-right: 6px;
-    }
-    li.tabs__tab.is-active {
-      display: none;
 
-    }
-    .tabs{
-      &:before {
-        background-color: transparent;
-        height: 0;
+    &:not(.nested-tabs) {
+      display: inline-block;
+      li.tabs__tab, li.tabs__tab.is-active{
+        border: none;
+        margin-right: 6px;
       }
-      &.primary {
-        a{
-         @include cd-tab-button;
+      li.tabs__tab.is-active {
+        display: none;
+
+      }
+      .tabs {
+        &:before {
+          background-color: transparent;
+          height: 0;
+        }
+        &.primary {
+          a{
+            @include cd-tab-button;
+          }
+        }
+        &.secondary {
+          position: relative;
+          top: 8px;
+          .tabs__tab {
+            a {
+              @include cd-tab-button;
+            }
+          }
         }
       }
     }
-  }
-  .tabs.secondary {
-    position: relative;
-    top: 8px;
-    .tabs__tab {
-      a {
-        @include cd-tab-button;
+    &.nested-tabs {
+      .tabs {
+
+        &.primary {
+          li.tabs__tab {
+            border: none;
+          }
+          background: #f8f8f8;
+          li.tabs__tab.is-active {
+            margin: 0;
+            background-color: #fff;
+            //border-left: 1px solid #dfdfdf;
+            //border-right: 1px solid #dfdfdf;
+          }
+        }
+        &.secondary {
+          background: #FFF;
+          margin-top: 0;
+          li.tabs__tab{
+            margin: 0;
+            a{
+              padding: 6px 13px;
+            }
+          }
+        }
+
       }
+
     }
   }
+
 
 
   .path-node {
@@ -338,13 +377,15 @@
     background: no-repeat 10px center;
   }
 
-  .admin-list li {
+  .admin-list li:first-child {
     border-top: none;
   }
   h1.page-title {
     font-weight: 400;
   }
-
+  .region-content {
+    position: relative;
+  }
 
   @media only screen and (max-width: 782px) {
     overflow-x: hidden !important;
@@ -356,7 +397,21 @@
     #block-credit-due-local-actions {
       float: none;
       position: static;
+      ul {
+        margin-top: 12px;
+      }
     }
+    .creditdue-content-view-content {
+      div.cd-pager {
+        display: block;
+        position: static;
+        margin: 6px 0;
+      }
+    }
+    [data-drupal-selector="edit-node-bulk-form"] {
+      display: none;
+    }
+
   }
 
 }

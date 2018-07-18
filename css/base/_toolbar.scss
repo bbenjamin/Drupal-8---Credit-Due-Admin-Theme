@@ -27,9 +27,25 @@
   .toolbar-toggle-orientation .toolbar-lining, ul.toolbar-menu .toolbar-handle {
     display: none;
   }
-  .toolbar-oriented .toolbar-tray-vertical > .toolbar-lining:before {
-    width: 160px;
+  .toolbar-oriented .toolbar-tray-vertical {
+    > .toolbar-lining:before {
+      width: 160px;
+    }
+    .toolbar-menu {
+      a {
+        padding: 6px 16px;
+      }
+    }
   }
+  .toolbar-lining {
+    background:  #0f0f0f;
+    > a {
+      color: #FFF;
+      text-decoration: underline;
+    }
+  }
+
+
   .toolbar  .toolbar-tray {
     a{
       padding-top: 6px;

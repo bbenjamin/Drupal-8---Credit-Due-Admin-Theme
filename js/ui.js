@@ -150,21 +150,22 @@
             return;
           }
 
-          var page = $(this).val() - 1;
+          var page = parseInt($(this).val()) - 1;
           var url = removeParam('page');
-          var totalPages = $('.total-pages').val();
+          var totalPages = parseInt($('.total-pages').first().text());
+
           if (page > totalPages) {
             page = totalPages - 1;
           }
-          if (page < 0) {
+          if (page <= 0) {
             page = 0;
           }
 
           if (url.indexOf('?') > -1) {
-            window.location = window.location.href + '&page=' + page;
+            window.location = url + '&page=' + page;
           }
           else {
-            window.location = window.location.href + '?page=' + page;
+            window.location = url + '?page=' + page;
           }
         }
       });
@@ -187,6 +188,19 @@
       function () {
         var $exposedItem = $(this).find('ul.level-1').first();
         $exposedItem.css('top');
+      });
+    }
+  };
+
+  Drupal.behaviors.designateNestedTabs = {
+    attach: function attach(context) {
+      $.each($('.block-local-tasks-block', context), function(i, v) {
+        var $this = $(this);
+        var $navs = $this.find('.tabs nav');
+        if ($navs.length > 1) {
+          console.log('we found nested tabs');
+          $this.addClass('nested-tabs');
+        }
       });
     }
   };
