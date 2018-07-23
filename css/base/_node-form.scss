@@ -6,12 +6,12 @@
       font-weight: normal;
     }
   }
+
   .node-form {
     .fieldset:not(.fieldgroup) > legend, fieldset:not(.fieldgroup) > legend {
       position: relative;
       font-size: 1.2em;
       top: 14px;
-      //compile
     }
     .layout-region-node-footer {
       display: none;
@@ -22,13 +22,16 @@
         margin-bottom: 0;
       }
     }
+
     input.form-autocomplete, input.form-text, input.form-tel, input.form-email, input.form-url, input.form-search, input.form-number, input.form-color, input.form-file, input.form-date, input.form-time, textarea.form-textarea {
       border: 1px solid #e5e5e5;
     }
+
     ul.tips li {
       margin: 0 0 0 1em;
       line-height: 16px;
     }
+
     .field--name-title {
       label{
         display: none;
@@ -37,6 +40,7 @@
         margin: 0;
       }
     }
+
     .field--name-title {
       input.form-text {
         height: 1.7em;
@@ -44,6 +48,7 @@
         line-height: 100%;
       }
     }
+
     .current-url-alias{
       text-transform: lowercase;
       font-weight: normal;
@@ -67,14 +72,16 @@
         letter-spacing: 0;
         text-transform: none;
       }
+
       .fieldset-language {
         letter-spacing: 0;
       }
+
       .fieldset-wrapper {
         display: none;
         padding-top: 20px;
-
       }
+
       &.opened-alias-fieldset {
         margin: 8px 0;
         padding: 12px;
@@ -86,6 +93,7 @@
         }
       }
     }
+
     #edit-meta {
       padding: 0;
       background: #FFF;
@@ -122,6 +130,7 @@
         }
       }
     }
+
     #edit-meta-preview {
       margin: 3px 8px;
     }
@@ -155,10 +164,12 @@
         margin-right: 8px;
       }
     }
+
     .is-expanded.expand-to-edit  .save-cancel {
       display: block;
       margin: 8px 0 24px;
     }
+
     .expand-to-edit {
       input, .save-cancel, .container-inline, .field--type-string-long {
         display: none;
@@ -179,9 +190,11 @@
         }
       }
     }
+
     input#edit-uid-0-target-id {
       font-size: 13px;
     }
+
     .field--name-status {
       display: inline-block;
       position: relative;
@@ -194,6 +207,7 @@
 
       }
     }
+
     .layout-region-node-main {
       .form-wrapper:not(.no-white-bg) {
         background: #FFF;
@@ -225,6 +239,7 @@
       }
     }
   }
+
   .path-node {
     @media only screen and (max-width: 782px) {
       h1.page-title {

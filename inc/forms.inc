@@ -114,9 +114,15 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
   $form['meta']['status'] = $form['status'];
   $form['status']['#access'] = FALSE;
 
+  // Override Menu Entity's change to published field.
+  if(isset($form['meta']['status']['widget'])) {
+    unset($form['meta']['status']['widget']['#description']);
+    $form['meta']['status']['widget']['#title'] = t('Published');
+  }
+
   // Change order of items within the Publish tab.
   $form['meta']['created']['#weight'] = 8;
-  $form['revision_information']['#weight'] = 9;
+  $form['meta']['created']['#weight'] = 9;
   $form['meta']['changed']['#weight'] = 10;
   $form['meta']['status']['#weight'] = 11;
 
@@ -151,7 +157,7 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
 }
 
 /**
- * Implements template_preprocess_HOOK().
+ * Implements template_preprocess_details().
  * Adresses issue that will be fixed in 8.6
  * https://www.drupal.org/project/drupal/issues/2652850.
  */
@@ -163,7 +169,7 @@ function credit_due_preprocess_details(&$variables) {
 }
 
 /**
- * Implements template_preprocess_HOOK().
+ * Implements template_preprocess_multiple_value_form().
  * Adresses issue that will be fixed in 8.6
  * https://www.drupal.org/project/drupal/issues/2652850.
  */

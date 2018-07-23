@@ -5,28 +5,35 @@
     box-shadow: none;
     border: none;
   }
+
   .toolbar #toolbar-item-administration-tray .toolbar-menu ul a{
     padding:6px 12px;
     background-color: #32373c;
   }
+
   .toolbar-oriented .is-active {
     width:160px;
   }
+
   .toolbar .toolbar-bar .toolbar-tab > .toolbar-item {
     font-weight: normal;
   }
+
   .toolbar  .toolbar-menu a, .toolbar .toolbar-tray .menu-item--active-trail > .toolbar-box a{
     font-family: $wp-font;
     font-size: 14px;
     background: #23282d;
     color: #eee;
   }
+
   .toolbar #toolbar-item-administration-tray .menu-item + .menu-item{
     border-top: none;
   }
+
   .toolbar-toggle-orientation .toolbar-lining, ul.toolbar-menu .toolbar-handle {
     display: none;
   }
+
   .toolbar-oriented .toolbar-tray-vertical {
     > .toolbar-lining:before {
       width: 160px;
@@ -37,6 +44,7 @@
       }
     }
   }
+
   .toolbar-lining {
     background:  #0f0f0f;
     > a {
@@ -44,6 +52,7 @@
       text-decoration: underline;
     }
   }
+
   .toolbar .toolbar-tray-horizontal .toolbar-menu {
     height: 100vh;
     a{
@@ -100,16 +109,17 @@
     }
   }
 
-
   .toolbar-icon-toggle-horizontal, .toolbar-icon-toggle-vertical {
     display:none;
   }
+
   #toolbar-administration .menu-item{
     padding:  2px 0;
     &.level-2{
       padding: 0;
     }
   }
+
   .administration-tab.toolbar-tab {
     display: none;
   }
@@ -151,8 +161,6 @@
       margin: 0 auto;
       width: 90%;
     }
-
-
     .toolbar .toolbar-tray-vertical.is-active {
       width: 190px;
     }
@@ -163,5 +171,4 @@
       content: none;
     }
   }
-
 }

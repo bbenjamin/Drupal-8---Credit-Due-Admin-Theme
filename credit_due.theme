@@ -86,6 +86,8 @@ function _credit_due_sidenav_menu() {
       }
       elseif (strpos($a, 'system.admin_content') !== FALSE && strpos($b, 'system.admin_content') === FALSE) {
         return -1;
+      }elseif (strpos($a, 'system.admin_content') === FALSE && strpos($b, 'system.admin_content') === FALSE) {
+        return 0;
       }
       return 1;
     });
@@ -151,11 +153,10 @@ function credit_due_preprocess_toolbar(&$variables) {
     $v['attributes']->addClass($k . '-tab');
   }
 }
-
 /**
- * Implements template_preprocess_links__dropbutton__operations().
+ * Implements template_preprocess_links__dropbutton().
  */
-function credit_due_preprocess_links__dropbutton__operations(&$variables) {
+function credit_due_preprocess_links__dropbutton(&$variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
   $views_table_routes = ['entity.user.collection', 'system.admin_content'];
   if (in_array($route_name, $views_table_routes)) {

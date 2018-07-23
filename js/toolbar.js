@@ -67,10 +67,10 @@
   Drupal.behaviors.adminSidebarHeight = {
     attach: function attach(context) {
       var $adminnav = $('#creditdue-admin-nav', context);
-      var adminHeight = $adminnav.find('.menu.level-0').first().height();
-      var contentHeight = $('.dialog-off-canvas-main-canvas').first().height();
+      var adminHeight = $adminnav.find('.menu.level-0').first().outerHeight();
+      var contentHeight = $('.dialog-off-canvas-main-canvas').first().outerHeight();
       var newAdminHeight = contentHeight > adminHeight ? contentHeight : adminHeight;
-      $adminnav.css('height', (newAdminHeight + 100) + 'px');
+      $adminnav.css('height', (newAdminHeight + 200) + 'px');
     }
   };
 })(jQuery, Drupal);

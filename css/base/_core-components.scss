@@ -70,12 +70,13 @@
       line-height: 1.45em;
     }
   }
+
   .paging-input {
     margin-right: .2em;
   }
+
   input.current-page {
     margin: 0 2px 0 0;
-    padding-bottom: 5px;
     font-size: 13px;
     text-align: center;
     width: 20px;
@@ -129,7 +130,8 @@
       }
     }
   }
-  /* #views-form-content-page-1,*/ .views-table {
+
+  #views-form-content-page-1, #views-form-user-admin-people-page-1{
     input.button{
       @include admin-button;
     }
@@ -166,9 +168,7 @@
       li{
         display: inline-block;
         background: transparent;
-
         margin-right: 10px;
-
         &:after {
           content: '|';
           color: #c0c0c0;
@@ -180,10 +180,10 @@
       }
     }
 
-    #view-operations-table-column {
+    #view-operations-table-column, #view-dropbutton-table-column {
       display: none;
     }
-    .views-field.views-field-operations {
+    .views-field.views-field-operations, [headers="view-dropbutton-table-column"] {
       padding: 0;
       width: 0;
     }
@@ -207,9 +207,11 @@
       }
     }
   }
+
   .toolbar-menu-administration {
     display: none;
   }
+
   .block-page-title-block {
     display: inline-block;
     vertical-align: top;
@@ -271,7 +273,6 @@
     }
     &.nested-tabs {
       .tabs {
-
         &.primary {
           li.tabs__tab {
             border: none;
@@ -280,8 +281,6 @@
           li.tabs__tab.is-active {
             margin: 0;
             background-color: #fff;
-            //border-left: 1px solid #dfdfdf;
-            //border-right: 1px solid #dfdfdf;
           }
         }
         &.secondary {
@@ -294,13 +293,9 @@
             }
           }
         }
-
       }
-
     }
   }
-
-
 
   .path-node {
     .block-system-breadcrumb-block {
@@ -380,6 +375,7 @@
       }
     }
   }
+
   a.button--small {
     padding: 5px 1em 2px;
   }
@@ -394,11 +390,11 @@
   .admin-list li:first-child {
     border-top: none;
   }
+
   h1.page-title {
     font-weight: 400;
   }
-
-
+  
   @media only screen and (max-width: 782px) {
     overflow-x: hidden !important;
     #block-credit-due-local-tasks {
@@ -423,7 +419,5 @@
     [data-drupal-selector="edit-node-bulk-form"] {
       display: none;
     }
-
   }
-
 }

@@ -1,20 +1,6 @@
 .creditdue{
   #creditdue-admin-nav {
     padding-top: 10px;
-    &.is-active {
-      z-index: 502;
-    }
-    *{
-      box-sizing: border-box;
-    }
-
-    ul.menu {
-      padding: 0;
-      margin:0;
-    }
-    .menu .menu{
-      display:none;
-    }
     position: absolute;
     width: 160px;
     background:#23282d;
@@ -25,6 +11,23 @@
     top: 29px;
     bottom: -120px;
     left: 0;
+    &.is-active {
+      z-index: 502;
+    }
+
+    *{
+      box-sizing: border-box;
+    }
+
+    ul.menu {
+      padding: 0;
+      margin:0;
+    }
+
+    .menu .menu{
+      display:none;
+    }
+
     ul{
       list-style: none;
       &.level-0 {
@@ -130,7 +133,7 @@
         }
       }
     }
-    /* ICONS STUFF */
+
     .toolbar-icon {
       padding-left: 2.75em; /* LTR */
       position: relative;
