@@ -157,8 +157,8 @@ function credit_due_preprocess_toolbar(&$variables) {
  */
 function credit_due_preprocess_links__dropbutton__operations(&$variables) {
   $route_name = \Drupal::routeMatch()->getRouteName();
-
-  if ($route_name == 'system.admin_content') {
+  $views_table_routes = ['entity.user.collection', 'system.admin_content'];
+  if (in_array($route_name, $views_table_routes)) {
     $variables['attributes']['class'] = ['inline-list', 'content-actions'];
   }
 }
@@ -170,27 +170,28 @@ function credit_due_preprocess_pager(&$variables) {
   if (isset($variables['items']['first']['text'])) {
     $variables['items']['first']['text'] = '«';
   }
-  elseif (count($variables['items']['pages']) > 1) {
+  elseif (isset($variables['items']['pages']) && count($variables['items']['pages']) > 1) {
     $variables['items']['first_empty']['text'] = '«';
   }
 
   if (isset($variables['items']['previous']['text'])) {
     $variables['items']['previous']['text'] = '‹';
   }
-  elseif (count($variables['items']['pages']) > 1) {
+  elseif (isset($variables['items']['pages']) && count($variables['items']['pages']) > 1) {
     $variables['items']['previous_empty']['text'] = '‹';
   }
+
   if (isset($variables['items']['next']['text'])) {
     $variables['items']['next']['text'] = '›';
   }
-  elseif (count($variables['items']['pages']) > 1) {
+  elseif (isset($variables['items']['pages']) && count($variables['items']['pages']) > 1) {
     $variables['items']['next_empty']['text'] = '›';
   }
 
   if (isset($variables['items']['last']['text'])) {
     $variables['items']['last']['text'] = '»';
   }
-  elseif (count($variables['items']['pages']) > 1) {
+  elseif (isset($variables['items']['pages']) && count($variables['items']['pages']) > 1) {
     $variables['items']['last_empty']['text'] = '»';
   }
 }

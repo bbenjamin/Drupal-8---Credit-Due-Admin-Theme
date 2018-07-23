@@ -7,6 +7,12 @@
     }
   }
   .node-form {
+    .fieldset:not(.fieldgroup) > legend, fieldset:not(.fieldgroup) > legend {
+      position: relative;
+      font-size: 1.2em;
+      top: 14px;
+      //compile
+    }
     .layout-region-node-footer {
       display: none;
     }
@@ -154,7 +160,7 @@
       margin: 8px 0 24px;
     }
     .expand-to-edit {
-      input, .save-cancel, .container-inline {
+      input, .save-cancel, .container-inline, .field--type-string-long {
         display: none;
       }
       label, .label {
@@ -168,7 +174,7 @@
         .edit-expand-field{
           display: none;
         }
-        input,  .container-inline {
+        input,  .container-inline, .field--type-string-long {
           display: block;
         }
       }
@@ -196,11 +202,25 @@
         .form-wrapper {
           padding: 0;
           border: none;
+          fieldset.form-item{
+            padding: 12px 4px;
+            background: #ededed;
+            background-origin: content-box;
+            .fieldset-wrapper, .form-wrapper {
+              background: #ededed;
+            }
+          }
         }
         label{
           display:block;
           padding-top: 8px;
           padding-bottom: 8px;
+        }
+        &.field-group-details {
+          background: #f1f5f8;
+          .form-wrapper {
+            background: #f1f5f8;
+          }
         }
       }
     }

@@ -129,7 +129,7 @@
       }
     }
   }
-  #views-form-content-page-1 {
+  /* #views-form-content-page-1,*/ .views-table {
     input.button{
       @include admin-button;
     }
@@ -148,6 +148,7 @@
       }
     }
     tr {
+      transform: scale(1);
       position: relative;
       &:hover{
         .inline-list {
@@ -178,12 +179,25 @@
         }
       }
     }
+
+    #view-operations-table-column {
+      display: none;
+    }
+    .views-field.views-field-operations {
+      padding: 0;
+      width: 0;
+    }
+    .dropbutton-wrapper {
+      position: absolute;
+      left: 40px;
+      bottom: 2px;
+    }
   }
 
   .views-table {
     tr{
       td {
-        padding: 10px 8px;
+        padding: 10px 8px 18px;
       }
       th {
         padding: 8px;
@@ -383,9 +397,7 @@
   h1.page-title {
     font-weight: 400;
   }
-  .region-content {
-    position: relative;
-  }
+
 
   @media only screen and (max-width: 782px) {
     overflow-x: hidden !important;

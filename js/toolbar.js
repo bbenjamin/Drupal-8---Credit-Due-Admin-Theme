@@ -35,8 +35,8 @@
   };
 
   Drupal.behaviors.mobileSidebarPosition = {
-    attach: function attach(context) {
-      var $adminSidebar = $('#creditdue-admin-nav');
+    attach: function attach (context) {
+      var $adminSidebar = $('#creditdue-admin-nav', context);
       function adjustSidebarOnScroll() {
         if ($(window).width() <= 575) {
           if ($(document).scrollTop() > 29) {
@@ -52,6 +52,25 @@
       $(window).scroll(function () {
         adjustSidebarOnScroll();
       });
+    }
+  };
+  /**
+   * Sticky table header don't fully cooperate with sticky table headers,
+   * so disable
+   */
+  Drupal.behaviors.removeStickyTables = {
+    attach: function attach(context) {
+      $('table.sticky-enabled', context).removeClass('sticky-enabled');
+    }
+  };
+
+  Drupal.behaviors.adminSidebarHeight = {
+    attach: function attach(context) {
+      var $adminnav = $('#creditdue-admin-nav', context);
+      var adminHeight = $adminnav.find('.menu.level-0').first().height();
+      var contentHeight = $('.dialog-off-canvas-main-canvas').first().height();
+      var newAdminHeight = contentHeight > adminHeight ? contentHeight : adminHeight;
+      $adminnav.css('height', (newAdminHeight + 100) + 'px');
     }
   };
 })(jQuery, Drupal);

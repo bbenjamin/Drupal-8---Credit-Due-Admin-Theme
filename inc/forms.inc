@@ -69,9 +69,6 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
   $form['meta']['preview']['#weight'] = 0;
   $form['meta']['actions']['preview']['#access'] = FALSE;
 
-  // Hide Revision information for now.
-  $form['revision_information']['#access'] = FALSE;
-
   // Change button and tab labels.
   $form['meta']['published']['#markup'] = t('Publish');
   $form['meta']['preview']['#value'] = t('Preview Changes');
@@ -80,35 +77,26 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
     '#prefix' => '<div class="save-cancel">',
     '#suffix' => '</div>',
     0 => [
-      '#type' => 'link',
-      '#url' => Url::fromUserInput('#'),
-      '#title' => t('OK'),
-      '#attributes' => [
-        'class' => ['button', 'save-cancel-ok'],
-      ],
+      '#markup' => '<a href="#" class="button save-cancel-ok">' . t('OK') . '</a>',
     ],
     1 => [
-      '#type' => 'link',
-      '#url' => Url::fromUserInput('#'),
-      '#title' => t('Cancel'),
-      '#attributes' => [
-        'class' => ['save-cancel-cancel'],
-      ],
+      '#markup' => '<a href="#" class="save-cancel-cancel">' . t('Cancel') . '</a>',
     ],
   ];
 
   // Change "authored on" field to label-only that can be edited
-  // by clicking "edit" and move to new position.
+  // by clicking "edit" and move to Publish tab.
   unset($form['created']['#group']);
   $form['meta']['created'] = $form['created'];
   $form['meta']['created']['#attributes']['class'][] = 'expand-to-edit';
   $form['meta']['created']['savecancel'] = $actions;
   unset($form['meta']['created']['widget']['#description']);
   unset($form['meta']['created']['widget'][0]['value']['#description']);
-  $form['created']['#access'] = false;
+  $form['created']['#access'] = FALSE;
   unset($form['created']);
+
   // Change "authored by" field to label-only that can be edited
-  // by clicking "edit" and move to new position.
+  // by clicking "edit" and move to Publish tab.
   unset($form['uid']['#group']);
   $form['meta']['uid'] = $form['uid'];
   $form['uid']['#access'] = FALSE;
@@ -117,15 +105,20 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
   $form['meta']['uid']['#attributes']['class'][] = 'expand-to-edit';
   $form['meta']['uid']['savecancel'] = $actions;
 
+  // Revision options are disabled for now, will support in future version.
+  $form['revision_information']['#access'] = FALSE;
+
+
   // Move "published" checkbox from form bottom to Publish tab.
   unset($form['status']['#group']);
   $form['meta']['status'] = $form['status'];
   $form['status']['#access'] = FALSE;
 
   // Change order of items within the Publish tab.
-  $form['meta']['status']['#weight'] = 10;
-  $form['meta']['changed']['#weight'] = 9;
   $form['meta']['created']['#weight'] = 8;
+  $form['revision_information']['#weight'] = 9;
+  $form['meta']['changed']['#weight'] = 10;
+  $form['meta']['status']['#weight'] = 11;
 
   // "Authoring information" tab is no longer necessary
   // because all elements have been moved to "Publish".
@@ -157,6 +150,41 @@ function credit_due_form_node_form_alter(&$form, FormStateInterface $form_state,
     $nid);
 }
 
-function credit_due_node_presave($entity) {
-
+/**
+ * Implements template_preprocess_HOOK().
+ * Adresses issue that will be fixed in 8.6
+ * https://www.drupal.org/project/drupal/issues/2652850.
+ */
+function credit_due_preprocess_details(&$variables) {
+  $element = $variables['element'];
+  if (!empty($element['#title'])) {
+    $variables['title'] = ['#markup' => $element['#title']];
+  }
 }
+
+/**
+ * Implements template_preprocess_HOOK().
+ * Adresses issue that will be fixed in 8.6
+ * https://www.drupal.org/project/drupal/issues/2652850.
+ */
+function credit_due_preprocess_multiple_value_form(&$variables) {
+  $element = $variables['element'];
+  if (!empty($element['#title'])) {
+    $variables['title'] = ['#markup' => $element['#title']];
+  }
+}
+
+/**
+ * Implements template_preprocess_HOOK().
+ * Adresses issue that will be fixed in 8.6
+ * https://www.drupal.org/project/drupal/issues/2652850.
+ */
+function credit_due_preprocess_datetime_wrapper(&$variables) {
+  $element = $variables['element'];
+  if (!empty($element['#title'])) {
+    $variables['title'] = ['#markup' => $element['#title']];
+  }
+}
+
+
+

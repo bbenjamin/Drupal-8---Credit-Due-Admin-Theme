@@ -44,9 +44,16 @@
       text-decoration: underline;
     }
   }
+  .toolbar .toolbar-tray-horizontal .toolbar-menu {
+    height: 100vh;
+    a{
+      &:hover{
+        text-decoration: underline;
+      }
+    }
+  }
 
-
-  .toolbar  .toolbar-tray {
+  .toolbar .toolbar-tray {
     a{
       padding-top: 6px;
       padding-bottom: 6px;
@@ -68,10 +75,6 @@
             color: #00b9eb;
           }
         }
-      }
-
-      a:hover {
-        text-decoration: none;
       }
     }
     a.is-active{
@@ -147,6 +150,17 @@
     .node-form #edit-meta-preview {
       margin: 0 auto;
       width: 90%;
+    }
+
+
+    .toolbar .toolbar-tray-vertical.is-active {
+      width: 190px;
+    }
+  }
+
+  @media only screen and (max-width: 978px) {
+    .toolbar-oriented .toolbar-tray-vertical .toolbar-menu a:before {
+      content: none;
     }
   }
 

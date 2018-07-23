@@ -27,7 +27,7 @@
 
       $('.save-cancel-ok', context).click(function (e) {
         e.preventDefault();
-        var $container = $(this).closest('.expand-to-edit');oo
+        var $container = $(this).closest('.expand-to-edit');
         var value = $container.find('input').first().val();
         if ($container.hasClass('field--widget-datetime-timestamp')) {
           value += ' ' + $container.find('.form-time').first().val();
@@ -202,6 +202,67 @@
           $this.addClass('nested-tabs');
         }
       });
+    }
+  };
+
+  Drupal.behaviors.removeEmptyNodeFormElements = {
+    attach: function attach(context) {
+      $.each($('.node-form .form-wrapper'), function (i, v) {
+        if ($(v).text().trim() === '') {
+          $(v).hide();
+        }
+      });
+    }
+  };
+
+  Drupal.behaviors.addressZeroHeightCkeditor = {
+    attach: function attach(context) {
+      // CKeditor is making some wysiwyg fields 0px high.
+      // This catches it when that happens and corrects it.
+      var obs = new MutationObserver(function(mutations, observer) {
+        $.each(mutations, function (i, mutation) {
+          var addedNodes = $(mutation.addedNodes);
+          var selector = '.cke_contents';
+          var filteredEls = addedNodes.find(selector).addBack(selector);
+          filteredEls.each(function () {
+            var target = document.getElementById($(this).attr('id'));
+            var observer = new MutationObserver(function (mutations) {
+              mutations.forEach(function (mutation) {
+                if ($(mutation.target).css("height") === '0px') {
+                  $(mutation.target).css("height", '200px');
+                }
+              });
+            });
+            var config = {
+              attributes: true,
+              attributeFilter: ['style']
+            };
+            observer.observe(target, config);
+          });
+        });
+      });
+
+      var wholePage = document.querySelector('body');
+      obs.observe(wholePage, {childList: true, subtree: true});
+
+    }
+  };
+
+  /*
+  Addresses issue that will be fixed in core 8.6
+  https://www.drupal.org/project/drupal/issues/2652850.
+  Targeted at the one form element that could not be easily fixed in a preprocessor.
+   */
+  Drupal.behaviors.unescapeTranslationMessage = {
+    attach: function attach(context) {
+      var $delbutton = $('#edit-meta-actions-delete[hreflang]', context);
+      if($delbutton.length) {
+        var delbuttoncontents = $delbutton.html();
+        var tempcontents = document.createElement('div');
+        tempcontents.innerHTML = delbuttoncontents;
+        var newdelbuttoncontents = tempcontents.childNodes.length === 0 ? "" : tempcontents.childNodes[0].nodeValue;
+        $delbutton.html(newdelbuttoncontents);
+      }
     }
   };
 })(jQuery, Drupal);
